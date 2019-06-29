@@ -28,15 +28,23 @@ class App extends React.Component {
 
   addMovieHandler() {
     let title = document.getElementById('add-movie').value;
-    let newMovie = {
-      title: title,
-      watched: false
-    };
-    this.state.movieList.push(newMovie);
-    this.setState({movieList: this.state.movieList,
-      displayMovies: this.state.movieList});
+    if (title) {
+      let newMovie = {
+        title: title,
+        watched: false
+      };
+      this.state.movieList.push(newMovie);
+      this.setState({movieList: this.state.movieList,
+        displayMovies: this.state.movieList});
+    }
   }
-
+  //TODO: restructure state.movieList to {name: {title: , watched: }}, and use to toggle watched property
+  watchedMovieHandler(e) {
+    e.persist();
+    console.log(e);
+    console.log(e.target.id);
+  }
+  
   render() {
    return (
       <div>
@@ -47,7 +55,9 @@ class App extends React.Component {
           <SearchBar searchHandler={this.searchHandler.bind(this)} />
         </div>
         <div>
-          {this.state.displayMovies.map((movie) => <MovieList movie={movie} />)}
+          {this.state.displayMovies.map((movie) => (
+          <MovieList movie={movie} watchedMovieHandler={this.watchedMovieHandler.bind(this)} />)
+          )}
         </div>
       </div>
    )

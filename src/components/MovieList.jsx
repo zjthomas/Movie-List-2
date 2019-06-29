@@ -1,7 +1,14 @@
 import React from 'react';
 
-let MovieList = ({movie}) => (
-<div>{movie.title}</div>
+let MovieList = ({movie, watchedMovieHandler}) => (
+  <div className="list-item">
+      <span>{movie.title}</span>
+      <button className="watched-btn" id={movie.title} onClick={(e) => {
+        e.preventDefault();
+        watchedMovieHandler(e);
+      }}>Watched</button>
+  </div>
+    
 
 )
 
